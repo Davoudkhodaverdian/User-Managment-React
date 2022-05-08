@@ -27,3 +27,13 @@ table[class='content-table'] thead th {
     padding: 5px;
     text-align: center;
 }
+
+@media only screen and (max-width: 840px) {
+
+    .table {
+        width: unset;
+        max-width: unset;
+    }
+
+
+}
