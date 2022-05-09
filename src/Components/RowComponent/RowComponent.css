@@ -1,3 +1,15 @@
-button.show, button.remove {
+button {
     margin-right: 5px;
+}
+
+input {
+    max-width: fit-content
+}
+
+td input {
+    width: calc(100%);
+}
+.membership-date input {
+    width: calc(100%/3 - 20px);
+
 }
