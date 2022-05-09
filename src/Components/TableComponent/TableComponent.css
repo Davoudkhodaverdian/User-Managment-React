@@ -5,15 +5,16 @@
     box-shadow: 1px 1px 5px lightgray;
     overflow-y: auto;
     border-radius: 2px 2px 0 0;
+    width: 100%;
+    max-width: 980px;
     max-height: 400px;
     text-align: center;
-    max-width: 980px;
 }
 
 table {
-    max-width: 980px;
+    width: 100%;
     border-collapse: collapse;
-    box-shadow: 0 0 20px rgba(24, 17, 17, 0.15);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     background-color: white;
 
 }

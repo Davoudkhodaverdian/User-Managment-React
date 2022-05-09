@@ -11,20 +11,32 @@ class UserList extends Component {
         ShowForm: false
     }
 
-    cols = ["Name", "MembershipDate","title","field","age","workExperience","Email","Role","key"]
+    cols = ["Name", "MembershipDate","Title","Field","Age","WorkExperience","Email","Role","key"]
 
     AddUser([key, array]) {
-        
+        debugger
         localStorage.setItem(key, array);
-         this.setState(prevState => ({ User: [...prevState.User, array],ShowForm: false }));
+        this.setState(prevState => ({ User: [...prevState.User, array],ShowForm: false }));
     }
 
     ShowFormMethod(show){
         this.setState({ShowForm: show})
     }
 
-    EditUser(){
-        alert("EditUser")
+
+
+    EditUser(key, array){
+
+        localStorage.setItem(key, array);
+        let users = this.state.User.map((item,index) => {
+            if (item[this.cols.indexOf("key")] === key) item = array;
+            return item;
+        });
+
+        this.setState(prevState => ({ 
+            User: [...users]
+           
+        }))
     }
 
     RemoveUser(key){
@@ -35,7 +47,7 @@ class UserList extends Component {
     render() {
 
         let {User,ShowForm} = this.state;
-        
+        debugger
         return (
           <UserListContext.Provider value={{
                 cols: this.cols,

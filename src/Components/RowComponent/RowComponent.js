@@ -12,27 +12,42 @@ class RowComponent extends Component {
     state = {
 
         edit: false,
-        editedName: this.getValue("name"),
+        editedName: this.getValue("Name"),
         editedDay: this.getValue("MembershipDate").split("/")[0],
         editedMonth: this.getValue("MembershipDate").split("/")[1],
         editedYear: this.getValue("MembershipDate").split("/")[2],
         editedEmail: this.getValue("Email"),
         editedRole: this.getValue("Role"),
-        editedTitle: this.getValue("title"),
-        editedField: this.getValue("field"),
-        editedAge: this.getValue("age"),
-        editedWorkExperience: this.getValue("workExperience"),
+        editedTitle: this.getValue("Title"),
+        editedField: this.getValue("Field"),
+        editedAge: this.getValue("Age"),
+        editedWorkExperience: this.getValue("WorkExperience"),
 
     }
-
-    changeValue(){
+    
+    EditChangeMethod(key){
+debugger
+        let {
+            editedName,editedYear,editedMonth,editedDay,editedTitle,
+            editedField,editedAge,editedWorkExperience,editedEmail,editedRole
+        } = this.state;
+        let dataChanged = [
+            editedName,(editedYear+"/"+editedMonth+"/"+editedDay),editedTitle,
+            editedField,editedAge,editedWorkExperience,editedEmail,editedRole,key
+        ]
         
+        this.context.EditUser(key,dataChanged);
+        this.setState({ edit: false })
     }
+
+ 
     setValueInput(name, event) {
-        
+        debugger
         this.setState({ [name]: event.target.value })
     }
-    EditMethod(){
+
+    EditStateMethod(key){
+        debugger
         this.setState({ edit: true })
     }
     render() {
@@ -41,10 +56,10 @@ class RowComponent extends Component {
             edit , editedName,editedDay,editedMonth,editedYear,editedEmail,
             editedRole,editedTitle,editedField,editedAge,editedWorkExperience
         } = this.state;
-        let { cols,EditUser,RemoveUser } = this.context;
+        let { cols,RemoveUser } = this.context;
         let {UserData } = this.props;
         let key = UserData[cols.indexOf("key")];
-
+        debugger
         return (
             <tr>
                
@@ -53,7 +68,7 @@ class RowComponent extends Component {
 
                         if (element == "key") return null;
                         else if(!edit) {
-                            if (element == "workExperience") {
+                            if (element == "WorkExperience") {
                                 let elem = UserData[cols.indexOf(element)];
                                 let txt = elem == "lessoneyear" ? "کمتر ازیک سال" : 
                                     elem == "betweenoneandtwoyear" ? "بین یک تا دو سال" : "بیشتر از دو سال";
@@ -73,7 +88,7 @@ class RowComponent extends Component {
                                     </td>
                                 )
                             
-                            } else if (element == "workExperience")
+                            } else if (element == "WorkExperience")
                                 return (
                                     <td key={index}>
                                         <select id="workExperience" name="workExperience" value={editedWorkExperience}
@@ -115,10 +130,10 @@ class RowComponent extends Component {
                                 }
                             else {
                                 
-                                    let text = element == "title" ? "عنوان شغلی" : 
-                                        element == "field" ? "رشته تحصیلی" : element == "age" ? "سن" : "ایمیل";
-                                    let valueItem = element == "title" ? editedTitle : 
-                                        element == "field" ? editedField : element == "age" ? editedAge : element == "name" ? editedName : editedEmail;
+                                    let text = element == "Title" ? "عنوان شغلی" : 
+                                        element == "Field" ? "رشته تحصیلی" : element == "Age" ? "سن" : element == "Name" ? "نام" : "ایمیل";
+                                    let valueItem = element == "Title" ? editedTitle : 
+                                        element == "Field" ? editedField : element == "Age" ? editedAge : element == "Name" ? editedName : editedEmail;
 
                                         return(<td key={index}>
                                     {
@@ -144,11 +159,11 @@ class RowComponent extends Component {
                        
                         edit ? (
                             <>
-                                <button type="button" className="btn btn-sm btn-danger" onClick={EditUser.bind(this, key)}>Edit</button> 
+                                <button type="button" className="btn btn-sm btn-danger" onClick={this.EditChangeMethod.bind(this, key)}>Edit</button> 
                             </>
                         ) : (
                             <>
-                                <button type="button" className="btn btn-sm btn-danger" onClick={this.EditMethod.bind(this, key)}>Edit</button>
+                                <button type="button" className="btn btn-sm btn-danger" onClick={this.EditStateMethod.bind(this, key)}>Edit</button>
                                 <button type="button" className="btn btn-sm btn-danger remove" onClick={RemoveUser.bind(this, key)}>Remove</button>
                             </>
                         )
