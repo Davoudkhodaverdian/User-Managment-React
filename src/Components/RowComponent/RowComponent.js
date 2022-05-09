@@ -26,7 +26,7 @@ class RowComponent extends Component {
     }
     
     EditChangeMethod(key){
-debugger
+
         let {
             editedName,editedYear,editedMonth,editedDay,editedTitle,
             editedField,editedAge,editedWorkExperience,editedEmail,editedRole
@@ -42,12 +42,12 @@ debugger
 
  
     setValueInput(name, event) {
-        debugger
+        
         this.setState({ [name]: event.target.value })
     }
 
     EditStateMethod(key){
-        debugger
+        
         this.setState({ edit: true })
     }
     render() {
@@ -59,7 +59,7 @@ debugger
         let { cols,RemoveUser } = this.context;
         let {UserData } = this.props;
         let key = UserData[cols.indexOf("key")];
-        debugger
+        
         return (
             <tr>
                

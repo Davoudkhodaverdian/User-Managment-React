@@ -14,7 +14,7 @@ class UserList extends Component {
     cols = ["Name", "MembershipDate","Title","Field","Age","WorkExperience","Email","Role","key"]
 
     AddUser([key, array]) {
-        debugger
+        
         localStorage.setItem(key, array);
         this.setState(prevState => ({ User: [...prevState.User, array],ShowForm: false }));
     }
@@ -47,7 +47,7 @@ class UserList extends Component {
     render() {
 
         let {User,ShowForm} = this.state;
-        debugger
+        
         return (
           <UserListContext.Provider value={{
                 cols: this.cols,
