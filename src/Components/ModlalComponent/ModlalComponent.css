@@ -1,20 +1,24 @@
 form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: end;
  
 }
 
-.date-input {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.date-input > input {
+    width: calc(100%/3 - 40px)
 }
 
 .input-custom {
     margin: 3px;
+    max-width: unset;
 }
 
 .btn-custom, label {
     margin: 3px;
+}
+
+.name-input {
+    display: flex;
+    flex-direction: row;
 }

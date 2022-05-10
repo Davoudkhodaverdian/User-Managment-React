@@ -21,6 +21,7 @@ class UserList extends Component {
     }
 
     ShowFormMethod(show){
+        
         this.setState({ShowForm: show})
     }
 

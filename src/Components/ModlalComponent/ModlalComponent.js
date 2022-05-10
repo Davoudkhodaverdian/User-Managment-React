@@ -4,14 +4,11 @@ import { Button,Modal } from 'react-bootstrap';
 import UserListContext from "../../Contexts/UserListContext"
 
 
-    
-
 class ModlalComponent extends Component {
     
     static contextType = UserListContext;
 
     state = {
-        show: this.props.ShowForm,
         name: "",
         day: "",
         month: "",
@@ -24,7 +21,7 @@ class ModlalComponent extends Component {
         workExperience:"lessoneyear"
     }
 
-    handleClose() {this.setState({show: false})};
+    handleClose(show) {this.context.ShowFormMethod(show)};
  
     setValueInput(name, event) {
         this.setState({ [name]: event.target.value })
@@ -55,15 +52,16 @@ class ModlalComponent extends Component {
 
     render() {
         
-        let {show} = this.state;
+        let {ShowForm} = this.props;
         let { day, month, year,name,email,Role,title,field,age,workExperience } = this.state;
 
+        console.log(ShowForm)
         return (
             <>
 
-            <Modal show={show} onHide={this.handleClose}>
+            <Modal show={ShowForm} onHide={this.handleClose.bind(this,false)}>
               <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>New User</Modal.Title>
               </Modal.Header>
               <Modal.Body>{this.props.children}</Modal.Body>
               <Modal.Footer>
@@ -74,18 +72,16 @@ class ModlalComponent extends Component {
                     <label htmlFor="name">نام</label>
                         </div>
                     <div className="date-input">
-                        <div>
+                       
                             <input type="text" id="year" name="date" className="input-custom"
                                 value={year} placeholder="سال" onChange={this.setValueInput.bind(this, "year")} />
-                        </div>
-                        <div>
+                     
                             <input type="text" id="month" name="date" className="input-custom"
                                 value={month} placeholder="ماه" onChange={this.setValueInput.bind(this, "month")} />
-                        </div>
-                        <div>
+                        
                             <input type="text" id="day" name="date" className="input-custom"
                                 value={day} placeholder="روز" onChange={this.setValueInput.bind(this, "day")} />
-                        </div>
+                     
                         <label htmlFor="date">تاریخ</label>
                     </div>
                 <div>
@@ -125,8 +121,8 @@ class ModlalComponent extends Component {
                     <label htmlFor="workExperience">سابقه کار</label>
                 </div>
                 <div>
-                    <input className="btn btn-sm btn-success btn-custom" type="submit" value="ثبت" onClick={this.submit.bind(this)} />
-                    <input className="btn btn-sm btn-danger btn-custom" type="submit" value="کنسل" onClick={this.context.ShowFormMethod.bind(this,false)} />
+                    <input className="btn btn-sm btn-success btn-custom" type="button" value="ثبت" onClick={this.submit.bind(this)} />
+                    <input className="btn btn-sm btn-danger btn-custom" type="button" value="کنسل" onClick={this.context.ShowFormMethod.bind(this,false)} />
                 </div>
  
             </form>

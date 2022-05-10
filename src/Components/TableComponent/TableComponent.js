@@ -17,14 +17,14 @@ class TableComponent extends Component {
                     <table className="content-table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>MembershipDate</th>
-                                <th>title</th>
-                                <th>field</th>
-                                <th>age</th>
-                                <th>workExperience</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th>نام کاربر</th>
+                                <th>ناریخ عضویت</th>
+                                <th>عنوان شغلی</th>
+                                <th>رشته تحصیلی</th>
+                                <th>سن</th>
+                                <th>تجربه کاری</th>
+                                <th>ایمیل</th>
+                                <th>نقش</th>
                                 <th></th>
                             </tr>
                         </thead>
