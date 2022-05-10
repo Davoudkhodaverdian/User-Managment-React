@@ -32,7 +32,7 @@ class RowComponent extends Component {
             editedField,editedAge,editedWorkExperience,editedEmail,editedRole
         } = this.state;
         let dataChanged = [
-            editedName,(editedYear+"/"+editedMonth+"/"+editedDay),editedTitle,
+            editedName,(editedDay+"/"+editedMonth+"/"+editedYear),editedTitle,
             editedField,editedAge,editedWorkExperience,editedEmail,editedRole,key
         ]
         
@@ -66,18 +66,18 @@ class RowComponent extends Component {
                 {
                     cols.map((element, index) => {
 
-                        if (element == "key") return null;
+                        if (element === "key") return null;
                         else if(!edit) {
-                            if (element == "WorkExperience") {
+                            if (element === "WorkExperience") {
                                 let elem = UserData[cols.indexOf(element)];
-                                let txt = elem == "lessoneyear" ? "کمتر ازیک سال" : 
-                                    elem == "betweenoneandtwoyear" ? "بین یک تا دو سال" : "بیشتر از دو سال";
+                                let txt = elem === "lessoneyear" ? "کمتر ازیک سال" : 
+                                    elem === "betweenoneandtwoyear" ? "بین یک تا دو سال" : "بیشتر از دو سال";
                                 return <td key={index}>{txt}</td>;
 
                             } else return <td key={index}>{UserData[cols.indexOf(element)]}</td>;
                         }
                         else {
-                            if (element == "Role") {
+                            if (element === "Role") {
                                 return ( 
                                     <td key={index}>
                                         <select id="user-type" name="user-type" value={editedRole} 
@@ -88,7 +88,7 @@ class RowComponent extends Component {
                                     </td>
                                 )
                             
-                            } else if (element == "WorkExperience")
+                            } else if (element === "WorkExperience")
                                 return (
                                     <td key={index}>
                                         <select id="workExperience" name="workExperience" value={editedWorkExperience}
@@ -99,7 +99,7 @@ class RowComponent extends Component {
                                         </select>
                                     </td>
                                 )
-                            else if (element == "MembershipDate"){
+                            else if (element === "MembershipDate"){
                                 return (
                                     <td key={index} className="membership-date">
                                         <input  type="text" id={"day"} name={"day"}
@@ -130,10 +130,10 @@ class RowComponent extends Component {
                                 }
                             else {
                                 
-                                    let text = element == "Title" ? "عنوان شغلی" : 
-                                        element == "Field" ? "رشته تحصیلی" : element == "Age" ? "سن" : element == "Name" ? "نام" : "ایمیل";
-                                    let valueItem = element == "Title" ? editedTitle : 
-                                        element == "Field" ? editedField : element == "Age" ? editedAge : element == "Name" ? editedName : editedEmail;
+                                    let text = element === "Title" ? "عنوان شغلی" : 
+                                        element === "Field" ? "رشته تحصیلی" : element === "Age" ? "سن" : element === "Name" ? "نام" : "ایمیل";
+                                    let valueItem = element === "Title" ? editedTitle : 
+                                        element === "Field" ? editedField : element === "Age" ? editedAge : element === "Name" ? editedName : editedEmail;
 
                                         return(<td key={index}>
                                     {
@@ -159,12 +159,12 @@ class RowComponent extends Component {
                        
                         edit ? (
                             <>
-                                <button type="button" className="btn btn-sm btn-danger" onClick={this.EditChangeMethod.bind(this, key)}>Edit</button> 
+                                <button type="button" className="btn btn-sm btn-primary btn-custom" onClick={this.EditChangeMethod.bind(this, key)}>Edit</button> 
                             </>
                         ) : (
                             <>
-                                <button type="button" className="btn btn-sm btn-danger" onClick={this.EditStateMethod.bind(this, key)}>Edit</button>
-                                <button type="button" className="btn btn-sm btn-danger remove" onClick={RemoveUser.bind(this, key)}>Remove</button>
+                                <button type="button" className="btn btn-sm btn-primary btn-custom" onClick={this.EditStateMethod.bind(this, key)}>Edit</button>
+                                <button type="button" className="btn btn-sm btn-danger remove btn-custom" onClick={RemoveUser.bind(this, key)}>Remove</button>
                             </>
                         )
                         

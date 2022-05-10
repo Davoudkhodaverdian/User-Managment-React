@@ -53,21 +53,21 @@ class UserListForm extends Component {
         return (
             <form>
                 <div>
-                    <input type="text" id="name" name="name"
+                    <input type="text" id="name" name="name" className="input-custom"
                         value={name} placeholder="نام و نام خانوادگی" onChange={this.setValueInput.bind(this, "name")} />
                     <label htmlFor="name">نام</label>
                         </div>
                     <div className="date-input">
                         <div>
-                            <input type="text" id="year" name="date"
+                            <input type="text" id="year" name="date" className="input-custom"
                                 value={year} placeholder="سال" onChange={this.setValueInput.bind(this, "year")} />
                         </div>
                         <div>
-                            <input type="text" id="month" name="date"
+                            <input type="text" id="month" name="date" className="input-custom"
                                 value={month} placeholder="ماه" onChange={this.setValueInput.bind(this, "month")} />
                         </div>
                         <div>
-                            <input type="text" id="day" name="date"
+                            <input type="text" id="day" name="date" className="input-custom"
                                 value={day} placeholder="روز" onChange={this.setValueInput.bind(this, "day")} />
                         </div>
                         <label htmlFor="date">تاریخ</label>
@@ -82,7 +82,7 @@ class UserListForm extends Component {
                             item == "field" ? field : item == "age" ? age : email;
                         return( 
                             <div key={index}> 
-                                <input type={item} id={item} name={item}
+                                <input type={item} id={item} name={item} className="input-custom"
                                     placeholder={text}  value={valueItem} onChange={this.setValueInput.bind(this, item)}  />
                                 <label htmlFor={item}>{text}</label>
                             </div>
@@ -109,8 +109,8 @@ class UserListForm extends Component {
                     <label htmlFor="workExperience">سابقه کار</label>
                 </div>
                 <div>
-                    <input className="btn btn-sm btn-success" type="submit" value="ثبت" onClick={this.submit.bind(this)} />
-                    <input className="btn btn-sm" type="submit" value="کنسل" onClick={this.context.ShowFormMethod.bind(this,false)} />
+                    <input className="btn btn-sm btn-success btn-custom" type="submit" value="ثبت" onClick={this.submit.bind(this)} />
+                    <input className="btn btn-sm btn-danger btn-custom" type="submit" value="کنسل" onClick={this.context.ShowFormMethod.bind(this,false)} />
                 </div>
             </form>
         )

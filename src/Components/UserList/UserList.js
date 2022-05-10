@@ -3,6 +3,7 @@ import "./UserList.css"
 import TableComponent from '../TableComponent/TableComponent'
 import UserListContext from '../../Contexts/UserListContext'
 import UserListForm from '../UserListForm/UserListForm'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class UserList extends Component {
 
@@ -60,14 +61,14 @@ class UserList extends Component {
             }}>
             <div>
             <div className="add-user">
-                <button type="button" className="btn btn-sm btn-danger" onClick={this.ShowFormMethod.bind(this,true)}>Add User</button>
+                <button type="button" className="btn btn-sm btn-primary" onClick={this.ShowFormMethod.bind(this,true)}>Add User</button>
             </div>
 
             <div>
                 <TableComponent/>
             </div>
             <div>
-                {ShowForm ?<UserListForm/>: null }
+                {ShowForm ?<UserListForm />: null }
                 
             </div>
             </div>

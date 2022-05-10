@@ -13,3 +13,6 @@ td input {
     width: calc(100%/3 - 20px);
 
 }
+.btn-custom {
+    margin-right: 3px;
+}
