@@ -1,12 +1,17 @@
 import { Component } from "react";
-import "./UserListForm.css";
+import "./ModlalComponent.css";
+import { Button,Modal } from 'react-bootstrap';
 import UserListContext from "../../Contexts/UserListContext"
 
-class UserListForm extends Component {
+
+    
+
+class ModlalComponent extends Component {
     
     static contextType = UserListContext;
 
     state = {
+        show: this.props.ShowForm,
         name: "",
         day: "",
         month: "",
@@ -19,6 +24,8 @@ class UserListForm extends Component {
         workExperience:"lessoneyear"
     }
 
+    handleClose() {this.setState({show: false})};
+ 
     setValueInput(name, event) {
         this.setState({ [name]: event.target.value })
     }
@@ -47,11 +54,20 @@ class UserListForm extends Component {
     }
 
     render() {
-
+        
+        let {show} = this.state;
         let { day, month, year,name,email,Role,title,field,age,workExperience } = this.state;
 
         return (
-            <form>
+            <>
+
+            <Modal show={show} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>{this.props.children}</Modal.Body>
+              <Modal.Footer>
+              <form>
                 <div>
                     <input type="text" id="name" name="name" className="input-custom"
                         value={name} placeholder="نام و نام خانوادگی" onChange={this.setValueInput.bind(this, "name")} />
@@ -112,9 +128,13 @@ class UserListForm extends Component {
                     <input className="btn btn-sm btn-success btn-custom" type="submit" value="ثبت" onClick={this.submit.bind(this)} />
                     <input className="btn btn-sm btn-danger btn-custom" type="submit" value="کنسل" onClick={this.context.ShowFormMethod.bind(this,false)} />
                 </div>
+ 
             </form>
+              </Modal.Footer>
+            </Modal>
+          </>
         )
     }
 }
 
-export default UserListForm;
+export default ModlalComponent;

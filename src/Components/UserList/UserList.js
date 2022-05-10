@@ -2,8 +2,8 @@ import { Component } from "react";
 import "./UserList.css"
 import TableComponent from '../TableComponent/TableComponent'
 import UserListContext from '../../Contexts/UserListContext'
-import UserListForm from '../UserListForm/UserListForm'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ModlalComponent from '../ModlalComponent/ModlalComponent'
 
 class UserList extends Component {
 
@@ -68,8 +68,7 @@ class UserList extends Component {
                 <TableComponent/>
             </div>
             <div>
-                {ShowForm ?<UserListForm />: null }
-                
+                <ModlalComponent ShowForm={ShowForm}/>                
             </div>
             </div>
             </UserListContext.Provider>
