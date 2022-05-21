@@ -1,80 +1,85 @@
-import { Component } from "react";
 import "./UserList.css"
 import TableComponent from '../TableComponent/TableComponent'
 import UserListContext from '../../Contexts/UserListContext'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ModlalComponent from '../ModlalComponent/ModlalComponent'
+import { useContext, useState } from 'react'
 
-class UserList extends Component {
 
-    state = {
-        User : Object.entries(localStorage).map(([key, value]) => value.split(",")),
+function UserList() {
+
+
+    const [state, setState] = useState({
+        User: JSON.parse(localStorage.getItem('users')) ? JSON.parse(localStorage.getItem('users')) : [],
         ShowForm: false
+    });
+
+  
+
+    const AddUser = (data) => {
+
+        setState(prevState => {
+            let users = [...prevState.User, data]
+            localStorage.setItem('users',JSON.stringify(users));
+            return { User: users, ShowForm: false };
+        })
     }
 
-    cols = ["Name", "MembershipDate","Title","Field","Age","WorkExperience","Email","Role","key"]
+    const ShowFormMethod = (show) => {
+        setState(prevState => ({ ...prevState, ShowForm: show }));
 
-    AddUser([key, array]) {
-        
-        localStorage.setItem(key, array);
-        this.setState(prevState => ({ User: [...prevState.User, array],ShowForm: false }));
     }
 
-    ShowFormMethod(show){
-        
-        this.setState({ShowForm: show})
-    }
+    const EditUser = (data) => {
 
+        setState(prevState => {
 
+            let users = state.User.map(item => {
+                if (item.key === data.key) item = data;
+                return item;
+            });
 
-    EditUser(key, array){
-
-        localStorage.setItem(key, array);
-        let users = this.state.User.map((item,index) => {
-            if (item[this.cols.indexOf("key")] === key) item = array;
-            return item;
+            localStorage.setItem('users',JSON.stringify(users));
+           return { ...prevState, User: users }
         });
-
-        this.setState(prevState => ({ 
-            User: [...users]
-           
-        }))
     }
 
-    RemoveUser(key){
-        localStorage.removeItem(key);
-        this.setState(prevState => ({ User: [...prevState.User.filter(item => (item[this.cols.indexOf("key")] !== key))] }));
+    const RemoveUser = (key) => {
+   
+        setState(prevState => {
+
+            let users = [...prevState.User.filter(item => item.key !== key)]
+            localStorage.setItem('users',JSON.stringify(users));
+           return { ...prevState, User: users }
+        });
     }
 
-    render() {
+    let { User, ShowForm } = state;
 
-        let {User,ShowForm} = this.state;
-        
-        return (
-          <UserListContext.Provider value={{
-                cols: this.cols,
-                User: User,
-                ShowForm: ShowForm,
-                AddUser: this.AddUser.bind(this),
-                EditUser: this.EditUser.bind(this),
-                RemoveUser: this.RemoveUser.bind(this),
-                ShowFormMethod: this.ShowFormMethod.bind(this),
-            }}>
+    return (
+        <UserListContext.Provider value={{
+            User: User,
+            ShowForm: ShowForm,
+            AddUser: AddUser,
+            EditUser: EditUser,
+            RemoveUser: RemoveUser,
+            ShowFormMethod: ShowFormMethod,
+        }}>
             <div>
-            <div className="add-user">
-                <button type="button" className="btn btn-sm btn-primary" onClick={this.ShowFormMethod.bind(this,true)}>Add User</button>
-            </div>
+                <div className="add-user">
+                    <button type="button" className="btn btn-sm btn-primary" onClick={ShowFormMethod.bind(this, true)}>Add User</button>
+                </div>
 
-            <div>
-                <TableComponent/>
+                <div>
+                    <TableComponent />
+                </div>
+                <div>
+                    <ModlalComponent ShowForm={ShowForm} />
+                </div>
             </div>
-            <div>
-                <ModlalComponent ShowForm={ShowForm}/>                
-            </div>
-            </div>
-            </UserListContext.Provider>
-        )
-    }
+        </UserListContext.Provider>
+    )
+
 }
 
 export default UserList;

@@ -2,14 +2,15 @@ import { Component } from "react";
 import "./TableComponent.css";
 import RowComponent from "../RowComponent/RowComponent";
 import UserListContext from "../../Contexts/UserListContext"
+import { useContext, useState} from 'react'
 
-class TableComponent extends Component {
+function TableComponent () {
     
-    static contextType = UserListContext;
+    const userListContext = useContext(UserListContext);
 
-    render() {
+  
         
-        let {User,cols} = this.context;
+        let {User} = userListContext;
         return (
             <div className="table">
                 <div className="table-part">
@@ -29,13 +30,14 @@ class TableComponent extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {User.map((item, index) => (<RowComponent key={item[cols.indexOf("key")]} UserData={item} />))}
+                            {User.map((item, index) => (<RowComponent key={item.key} UserData={item} />))}
                         </tbody>
                     </table>
+                    {User.length === 0 ? <p className="no-user">there is no user</p> : null}
                 </div>
             </div>
         )
-    }
+  
 }
 
 export default TableComponent;

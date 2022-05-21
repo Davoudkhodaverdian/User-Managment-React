@@ -1,8 +1,7 @@
 import React from "react";
 
 const UserListContext = React.createContext({
-  
-    cols: [],
+
     Users: [],
     ShowForm: true,
     AddUser: ()=>{},
