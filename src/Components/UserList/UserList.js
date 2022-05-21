@@ -15,8 +15,7 @@ function UserList() {
         ShowForm: false
     });
 
-    // Similar to componentDidMount and componentDidUpdate:
-    useEffect(() => {
+    const getInfoMethod = () => {
         axios.get(``)
         .then((response) => {
             // handle success
@@ -28,6 +27,11 @@ function UserList() {
         }).finally(function () {
             // always executed
         });
+    }
+
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+        getInfoMethod()
       },[]);
 
     const AddUser = (data) => {
@@ -35,11 +39,7 @@ function UserList() {
         axios.post(``, data)
             .then((response) => {
                 // handle success 
-                setState(prevState => {
-                    let users = [...prevState.User, data]
-                    //localStorage.setItem('users',JSON.stringify(users));
-                    return { User: users, ShowForm: false };
-                })
+                getInfoMethod();
                 //console.log(response);
             }).catch(function (error) {
                 // handle error
