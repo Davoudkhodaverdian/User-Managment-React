@@ -30,7 +30,7 @@ function TableComponent () {
                             </tr>
                         </thead>
                         <tbody>
-                            {User.map((item, index) => (<RowComponent key={item.key} UserData={item} />))}
+                            {User.map((item, index) => (<RowComponent key={item.password} UserData={item} />))}
                         </tbody>
                     </table>
                     {User.length === 0 ? <p className="no-user">there is no user</p> : null}

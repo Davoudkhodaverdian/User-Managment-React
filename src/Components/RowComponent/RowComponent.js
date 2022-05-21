@@ -26,7 +26,7 @@ function RowComponent(props) {
     });
 
 
-    const EditChangeMethod = (key) => {
+    const EditChangeMethod = (id,key) => {
 
         let {
             editedName, editedYear, editedMonth, editedDay, editedTitle,
@@ -34,16 +34,16 @@ function RowComponent(props) {
         } = state;
         let dataChanged = {
             name: editedName, membershipDate: (Number(editedYear) + "/" + Number(editedMonth) + "/" + Number(editedDay)), title: editedTitle,
-            field: editedField, age: editedAge, workExperience: editedWorkExperience, email: editedEmail, role: editedRole, key
+            field: editedField, age: editedAge, workExperience: editedWorkExperience, email: editedEmail, role: editedRole, password: key
         }
 
-        userListContext.EditUser(dataChanged);
+        userListContext.EditUser({...dataChanged},id);
         setState(prevState => ({ ...prevState, edit: false }))
     }
 
 
     const setValueInput = (name, event) => {
-
+        
         setState(prevState => ({ ...prevState, [name]: event.target.value }))
     }
 
@@ -60,9 +60,9 @@ function RowComponent(props) {
     } = state;
 
     let { RemoveUser } = userListContext;
-
-    let key = UserData.key;
-
+    
+    let key = UserData.password;
+    let id = UserData.id
     return (
         <tr>
 
@@ -70,7 +70,7 @@ function RowComponent(props) {
 
                 Object.keys(UserData).map((element, index) => {
 
-                    if (element === "key") return null;
+                    if (element === "password" || element === "id") return null;
                     else if (!edit) {
                         if (element === "workExperience") {
                             let elem = UserData[element];
@@ -153,12 +153,12 @@ function RowComponent(props) {
 
                     edit ? (
                         <>
-                            <button type="button" className="btn btn-sm btn-primary btn-custom" onClick={EditChangeMethod.bind(this, key)}>Edit</button>
+                            <button type="button" className="btn btn-sm btn-primary btn-custom" onClick={EditChangeMethod.bind(this, id,key)}>Edit</button>
                         </>
                     ) : (
                         <>
                             <button type="button" className="btn btn-sm btn-primary btn-custom" onClick={EditStateMethod.bind(this, key)}>Edit</button>
-                            <button type="button" className="btn btn-sm btn-danger remove btn-custom" onClick={RemoveUser.bind(this, key)}>Remove</button>
+                            <button type="button" className="btn btn-sm btn-danger remove btn-custom" onClick={RemoveUser.bind(this, id,key)}>Remove</button>
                         </>
                     )
 

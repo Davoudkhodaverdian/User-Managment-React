@@ -3,54 +3,100 @@ import TableComponent from '../TableComponent/TableComponent'
 import UserListContext from '../../Contexts/UserListContext'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ModlalComponent from '../ModlalComponent/ModlalComponent'
-import { useContext, useState } from 'react'
-
+import { useState } from 'react'
+import axios from "../../Api/Api";
+import { useEffect } from "react";
 
 function UserList() {
 
 
     const [state, setState] = useState({
-        User: JSON.parse(localStorage.getItem('users')) ? JSON.parse(localStorage.getItem('users')) : [],
+        User: [],
         ShowForm: false
     });
 
-  
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+        axios.get(``)
+        .then((response) => {
+            // handle success
+            if (response.data) setState({ User: Object.entries(response.data.data).map(([key, value]) => { return { ...value } }) })
+            console.log(response);
+        }).catch(function (error) {
+            // handle error
+            console.log(error);
+        }).finally(function () {
+            // always executed
+        });
+      },[]);
 
     const AddUser = (data) => {
 
-        setState(prevState => {
-            let users = [...prevState.User, data]
-            localStorage.setItem('users',JSON.stringify(users));
-            return { User: users, ShowForm: false };
-        })
+        axios.post(``, data)
+            .then((response) => {
+                // handle success 
+                setState(prevState => {
+                    let users = [...prevState.User, data]
+                    //localStorage.setItem('users',JSON.stringify(users));
+                    return { User: users, ShowForm: false };
+                })
+                //console.log(response);
+            }).catch(function (error) {
+                // handle error
+                console.log(error);
+            }).finally(function () {
+                // always executed
+            });
     }
 
     const ShowFormMethod = (show) => {
         setState(prevState => ({ ...prevState, ShowForm: show }));
-
     }
 
-    const EditUser = (data) => {
+    const EditUser = (data,id) => {
 
-        setState(prevState => {
+        axios.put(`/${id}`,{...data })
+        .then((response) => {
+            // handle success
 
-            let users = state.User.map(item => {
-                if (item.key === data.key) item = data;
-                return item;
+            setState(prevState => {
+
+                let users = state.User.map(item => {
+                    if (item.password === data.password) item = {...data,id};
+                    return item;
+                });
+    
+               //localStorage.setItem('users',JSON.stringify(users));
+               return { ...prevState, User: users }
             });
-
-            localStorage.setItem('users',JSON.stringify(users));
-           return { ...prevState, User: users }
+            
+            console.log(response);
+        }).catch(function (error) {
+            // handle error
+            console.log(error);
+        }).finally(function () {
+            // always executed
         });
+
     }
 
-    const RemoveUser = (key) => {
-   
-        setState(prevState => {
+    const RemoveUser = (id,key) => {
 
-            let users = [...prevState.User.filter(item => item.key !== key)]
-            localStorage.setItem('users',JSON.stringify(users));
-           return { ...prevState, User: users }
+        axios.delete(`/${id}`)
+        .then((response) => {
+            // handle success 
+            setState(prevState => {
+
+                let users = [...prevState.User.filter(item => item.password !== key)]
+                //localStorage.setItem('users',JSON.stringify(users));
+               return { ...prevState, User: users }
+            });
+            //console.log(response);
+        }).catch(function (error) {
+            // handle error
+            console.log(error);
+        }).finally(function () {
+            // always executed
         });
     }
 

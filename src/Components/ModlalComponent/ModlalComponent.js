@@ -1,7 +1,7 @@
 import "./ModlalComponent.css";
 import { Button, Modal } from 'react-bootstrap';
 import UserListContext from "../../Contexts/UserListContext"
-import { useContext, useState} from 'react'
+import { useContext, useState } from 'react'
 
 
 
@@ -27,12 +27,12 @@ function ModlalComponent(props) {
     const setValueInput = (name, event) => {
         setState(prevState => ({ ...prevState, [name]: event.target.value }))
     }
-    
+
     const submit = (event) => {
-    
+
         event.preventDefault();
         let { day, month, year, name, email, role, title, field, age, workExperience } = state;
-    
+
         if (!isNaN(Number(name)) || name === "")
             return alert("نام را به درستی وارد کنید");
         else if (isNaN(Number(day)) || Number(day) === 0 || Number(day) > 31)
@@ -48,10 +48,7 @@ function ModlalComponent(props) {
         else if (isNaN(Number(age)) || age === "")
             return alert("سن را به درستی وارد کنید");
         let key = Date.now();
-         
-        userListContext.AddUser({name,membershipDate:(Number(year) + "/" + Number(month) + "/" + Number(day)),title,field,age, workExperience,email, role, key});
-  
-        setState(prevState => ({ 
+        setState(prevState => ({
             name: "",
             day: "",
             month: "",
@@ -62,7 +59,9 @@ function ModlalComponent(props) {
             field: "",
             age: "",
             workExperience: "lessoneyear"
-         }))
+        }));
+        userListContext.AddUser({ name, membershipDate: (Number(year) + "/" + Number(month) + "/" + Number(day)), title, field, age, workExperience, email, role, password: key });
+
     }
 
     let { ShowForm } = props;
@@ -71,7 +70,7 @@ function ModlalComponent(props) {
 
     return (
         <>
-            <Modal show={ShowForm} onHide={handleClose.bind(this, false,userListContext)}>
+            <Modal show={ShowForm} onHide={handleClose.bind(this, false, userListContext)}>
                 <Modal.Header closeButton>
                     <Modal.Title>New User</Modal.Title>
                 </Modal.Header>
