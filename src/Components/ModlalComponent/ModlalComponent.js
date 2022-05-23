@@ -60,7 +60,7 @@ function ModlalComponent(props) {
             age: "",
             workExperience: "lessoneyear"
         }));
-        userListContext.AddUser({ name, membershipDate: (Number(year) + "/" + Number(month) + "/" + Number(day)), title, field, age, workExperience, email, role, password: key });
+        userListContext.AddUser({ name, membershipDate: (Number(year) + "/" + Number(month) + "/" + Number(day)), title, field, age, workExperience, email, role, password: key.toString() });
 
     }
 

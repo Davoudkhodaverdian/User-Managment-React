@@ -34,7 +34,7 @@ function RowComponent(props) {
         } = state;
         let dataChanged = {
             name: editedName, membershipDate: (Number(editedYear) + "/" + Number(editedMonth) + "/" + Number(editedDay)), title: editedTitle,
-            field: editedField, age: editedAge, workExperience: editedWorkExperience, email: editedEmail, role: editedRole, password: key
+            field: editedField, age: editedAge, workExperience: editedWorkExperience, email: editedEmail, role: editedRole, password: Date.now().toString()
         }
 
         userListContext.EditUser({...dataChanged},id);

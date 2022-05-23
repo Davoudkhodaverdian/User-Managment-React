@@ -55,14 +55,14 @@ function UserList() {
 
     const EditUser = (data,id) => {
 
-        axios.put(`/${id}`,{...data })
+        axios.put(`/${id}`,{...data,id })
         .then((response) => {
             // handle success
 
             setState(prevState => {
 
                 let users = state.User.map(item => {
-                    if (item.password === data.password) item = {...data,id};
+                    if (item.id === id) item = {...data,id};
                     return item;
                 });
     
