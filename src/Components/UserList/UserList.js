@@ -2,7 +2,7 @@ import "./UserList.css"
 import TableComponent from '../TableComponent/TableComponent'
 import UserListContext from '../../Contexts/UserListContext'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ModlalComponent from '../ModlalComponent/ModlalComponent'
+import ModalComponent from '../ModalComponent/ModalComponent'
 import { useState } from 'react'
 import axios from "../../Api/Api";
 import { useEffect } from "react";
@@ -120,7 +120,7 @@ function UserList() {
                     <TableComponent />
                 </div>
                 <div>
-                    <ModlalComponent ShowForm={ShowForm} />
+                    <ModalComponent ShowForm={ShowForm} />
                 </div>
             </div>
         </UserListContext.Provider>

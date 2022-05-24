@@ -1,11 +1,11 @@
-import "./ModlalComponent.css";
+import "./ModalComponent.css";
 import { Button, Modal } from 'react-bootstrap';
 import UserListContext from "../../Contexts/UserListContext"
 import { useContext, useState } from 'react'
 
 
 
-function ModlalComponent(props) {
+function ModalComponent(props) {
 
     const userListContext = useContext(UserListContext)
 
@@ -144,4 +144,4 @@ function ModlalComponent(props) {
 
 }
 
-export default ModlalComponent;
+export default ModalComponent;
